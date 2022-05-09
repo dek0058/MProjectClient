@@ -13,11 +13,6 @@ namespace MProject.Unit {
         public UnitController unit_controller = new UnitController();
 
         
-
-        public void Move(InputAction.CallbackContext context) {
-           unit_controller.rigidbody.MovePosition(context.ReadValue<Vector2>());
-        }
-        
         private void FixedUpdate() {
             unit_controller.Update();
         }
