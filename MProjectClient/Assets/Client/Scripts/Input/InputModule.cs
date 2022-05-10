@@ -17,6 +17,8 @@ namespace MProject.Input {
         public virtual ModuleType Module_Type { get => ModuleType.None; }
 
         public virtual void Register(PlayerInput _player_input) {}
+        public virtual void Unregister() {}
+
 
     }
 }

@@ -9,7 +9,6 @@ namespace MProject.Manager {
     public class InputManager : USingleton<InputManager> {
 
         public PlayerInput player_input;
-        public InputAction action;
         public InputModule.ModuleType input_module_type;
         
         public InputModule Module { get; private set; }
