@@ -16,7 +16,13 @@ namespace MProject.Animation {
 
         public Animator animator;
         public FastPriorityQueue<LayerNode> anim_queue = new FastPriorityQueue<LayerNode>(MAX_SIZE/*max size*/);
-        
+
+        private AnimationType current_state = AnimationType.None;
+        public AnimationType Current_State {
+            get => current_state;
+            set => current_state = value;
+        }
+
         private bool is_ready = false;
         public bool Ready { set => is_ready = value; }
 
@@ -25,7 +31,6 @@ namespace MProject.Animation {
             if(anim_queue.Count == MAX_SIZE) {
                 return;
             }
-            Ready = true;
             anim_queue.Enqueue(new LayerNode { id = _id }, (float)_prority);
         }
 

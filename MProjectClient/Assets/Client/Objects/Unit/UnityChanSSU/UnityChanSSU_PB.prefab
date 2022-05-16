@@ -1856,7 +1856,7 @@ Transform:
   m_Children:
   - {fileID: 1277182103427294295}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4017719173823971693
 Rigidbody:
@@ -1865,10 +1865,15 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259099811353082550}
-  serializedVersion: 2
-  m_Mass: 1
+  serializedVersion: 3
+  m_Mass: 49
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1902,8 +1907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animation_controller:
     rid: 1713229515846582326
-  unit_controller:
-    rid: 1713229515846582327
+  origin: {fileID: 11400000, guid: 9763ba1bca2197b41a9dc7d88e5a0d62, type: 2}
   references:
     version: 2
     RefIds:
@@ -1911,12 +1915,6 @@ MonoBehaviour:
       type: {class: AnimationController, ns: MProject.Animation, asm: Assembly-CSharp}
       data:
         animator: {fileID: 9165798973503539501}
-    - rid: 1713229515846582327
-      type: {class: UnitController, ns: MProject.Unit, asm: Assembly-CSharp}
-      data:
-        rigidbody: {fileID: 4017719173823971693}
-        velocity: {x: 0, y: 0, z: 0}
-        direction: {x: 0, y: 0, z: 0}
 --- !u!1 &1348319347090718771
 GameObject:
   m_ObjectHideFlags: 0

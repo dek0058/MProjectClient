@@ -2,10 +2,6 @@
 
 namespace MProject {
     
-    public enum PlayerActorType : Byte {
-        MainCharacter = 0,
-
-    }
 
     public static class GlobalDefine {
         public static Int32 PACKET_TAG_SIZE = sizeof(UInt32);
@@ -14,4 +10,10 @@ namespace MProject {
         public static Int32 PACKET_HEADER_SIZE = PACKET_TAG_SIZE + PACKET_LEGNTH_SIZE + PACKET_HASH_CODE_SIZE;
         public static Int32 PACKET_MAX_SIZE = 1024;
     }
+
+    public enum GameModeType : byte {
+        None = 0,
+        Generic = 1,
+    }
+
 }

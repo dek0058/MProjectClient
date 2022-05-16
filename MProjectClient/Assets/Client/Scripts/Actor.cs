@@ -5,20 +5,38 @@ using UnityEngine;
 using MProject.Animation;
 
 namespace MProject {
+    [RequireComponent(typeof(Rigidbody))]
     public class Actor : MonoBehaviour {
 
         [SerializeReference]
         public AnimationController animation_controller = new AnimationController();
 
-        private void Awake() {
+        public Rigidbody ARigidbody { 
+            get; private set; 
+        }
+
+        /// <summary>Movement Driection</summary>
+        public virtual Vector3 MDirection {
+            get=>Vector3.zero;
+            protected set { ; }
+        }
+
+        /// <summary>Rotation Driection</summary>
+        public virtual Vector3 RDirection {
+            get => Vector3.zero; 
+            protected set { ; }
         }
 
 
-        private void OnEnable() {
-            ActorAnimation.Initialize(animation_controller.animator, this);
+        protected virtual void Awake() {
+            ARigidbody = GetComponent<Rigidbody>();
         }
 
-        private void Update() {
+        protected virtual void OnEnable() {
+            SceneLinkedSMB<Actor>.Initialize(animation_controller.animator, this);
+        }
+
+        protected virtual void Update() {
             animation_controller.Update();
         }
 

@@ -9,11 +9,22 @@ namespace MProject.Animation {
         [SerializeField]
         private float exit_time = 1.0F;
 
-        public override void OnSLStateNoTransitionUpdate(Animator animator, AnimatorStateInfo info, int layer) {
+        [SerializeField]
+        private AnimationType animation_type;
+
+        public override void OnSLStateEnter(Animator _animator, AnimatorStateInfo _state_info, int layer_index) {
             if (component == null) {
                 return;
             }
-            if(info.normalizedTime >= exit_time) {
+            component.animation_controller.Current_State = animation_type;
+        }
+        
+        public override void OnSLStateNoTransitionUpdate(Animator _animator, AnimatorStateInfo _info, int _layer) {
+            if (component == null) {
+                return;
+            }
+            component.animation_controller.Current_State = animation_type;
+            if (_info.normalizedTime >= exit_time) {
                 component.animation_controller.Ready = true;
             }
         }

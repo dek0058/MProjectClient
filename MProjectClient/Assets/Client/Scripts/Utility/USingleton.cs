@@ -9,7 +9,8 @@ namespace MProject.Utility {
         bool dont_destroy_on_load = false;
         protected static bool Qutting { get; private set; } = false;
         private static readonly Object mutex = new Object();
-        private static SortedDictionary<System.Type, USingleton<T>> instance;
+        private static Dictionary<System.Type, USingleton<T>> instance;
+
 
         public static T Instance {
             get {
@@ -18,7 +19,7 @@ namespace MProject.Utility {
                 }
                 lock (mutex) {
                     if (instance == null) {
-                        instance = new SortedDictionary<System.Type, USingleton<T>>();
+                        instance = new Dictionary<System.Type, USingleton<T>>();
                     }
                     if (instance.ContainsKey(typeof(T))) {
                         return instance[typeof(T)] as T;
@@ -36,7 +37,7 @@ namespace MProject.Utility {
 
                 lock (mutex) {
                     if (instance == null) {
-                        instance = new SortedDictionary<System.Type, USingleton<T>>();
+                        instance = new Dictionary<System.Type, USingleton<T>>();
                     }
                     if (instance.ContainsKey(GetType())) {
                         Destroy(gameObject);
@@ -44,12 +45,22 @@ namespace MProject.Utility {
                         is_self = true;
                         instance.Add(GetType(), this);
                         if (dont_destroy_on_load) {
-                            Destroy(gameObject);
+                            DontDestroyOnLoad(gameObject);
                         }
                     }
                 }
                 if (is_self) {
                     Enable();
+                }
+            }
+        }
+
+        private void OnDestroy() {
+            if (false == Qutting) {
+                lock (mutex) {
+                    if (instance != null) {
+                        instance.Remove(GetType());
+                    }
                 }
             }
         }
