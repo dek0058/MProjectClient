@@ -10,7 +10,7 @@ namespace MProject.Player {
             Main,
         }
 
-        public readonly UInt32 id = 0;
+        public readonly UInt32 user_key = 0;
 
         public virtual GameModeType InutType { 
             get => GameModeType.None; 

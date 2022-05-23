@@ -8,6 +8,8 @@ namespace MProject {
     [RequireComponent(typeof(Rigidbody))]
     public class Actor : MonoBehaviour {
 
+        public UInt32 actor_key = 0;
+
         [SerializeReference]
         public AnimationController animation_controller = new AnimationController();
 
