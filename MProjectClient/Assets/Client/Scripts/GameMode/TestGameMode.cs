@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using MProject.Packet;
+//using MProject.Packet;
 using MProject.Player;
 using MProject.Manager;
 using MProject.Unit;
@@ -27,8 +27,9 @@ namespace MProject.GameMode {
 
 
         public override void Initialize() {
-            NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.UserLogin, new UserLoginProtocolHandler());
-            NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.IssueUserKey, new IssuseUserKeyProtocolHandler());
+            
+            //NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.UserLogin, new UserLoginProtocolHandler());
+            //NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.IssueUserKey, new IssuseUserKeyProtocolHandler());
             
             NetworkManager.Instance.Client.connect_completed += OnConnect;
             NetworkManager.Instance.Client.connect_completed += OnDisconnect;
@@ -63,7 +64,7 @@ namespace MProject.GameMode {
         }
 
         private void OnInitialize() {
-            NetworkManager.Instance.SendPacket(UserLoginProtocol.CreatePacket());
+            //NetworkManager.Instance.SendPacket(UserLoginProtocol.CreatePacket());
 
         }
 

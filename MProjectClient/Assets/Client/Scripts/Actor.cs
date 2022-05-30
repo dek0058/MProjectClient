@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MProject.Animation;
+using MProject.Player;
+using MProject.Utility;
 
 namespace MProject {
     [RequireComponent(typeof(Rigidbody))]
     public class Actor : MonoBehaviour {
 
         public UInt32 actor_key = 0;
+        public GPC player {
+            get; protected set;
+        }
 
         [SerializeReference]
         public AnimationController animation_controller = new AnimationController();
@@ -29,6 +34,9 @@ namespace MProject {
             protected set { ; }
         }
 
+        public FlatBuffers.Offset<Packet.Actor> ToFlatbuffer(FlatBuffers.FlatBufferBuilder _builder) {
+            return Packet.Actor.CreateActor(_builder, actor_key, player.user_key, UniversalToolkit.Transform2Flatbuffer(_builder, transform.position, transform.rotation, transform.localScale));
+        }
 
         protected virtual void Awake() {
             ARigidbody = GetComponent<Rigidbody>();
