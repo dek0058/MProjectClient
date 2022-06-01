@@ -234,7 +234,7 @@ namespace MProject.Protocol {
         public NS2C_LeftUserInWorldProtocolHandler() : base(new NS2C_LeftUserInWorldProtocol()) { }
         public override void ReceivePacket(FPacket _packet) {
             var data = NS2C_LeftUserInWorldProtocol.Deserialize(_packet);
-
+            // Ã³¸®
         }
     }
 }
