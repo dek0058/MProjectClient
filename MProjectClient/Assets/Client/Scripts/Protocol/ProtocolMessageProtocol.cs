@@ -43,10 +43,10 @@ namespace MProject.Protocol {
     public class ProtocolMessageHandler : BaseProtocolHandler {
         public ProtocolMessageHandler() : base(new ProtocolMessageProtocol()) {}
         public override void ReceivePacket(FPacket _packet) {
+            NetworkManager.Instance.Handler_Manager.ClearHandler();
             foreach (var (tag, hash_code) in ProtocolMessageProtocol.Deserialize(_packet)) {
                 NetworkManager.Instance.Handler_Manager.RegisterHandler(tag, hash_code);
             }
-            NetworkManager.Instance.initialize_completed.Invoke();
         }
     }
 }

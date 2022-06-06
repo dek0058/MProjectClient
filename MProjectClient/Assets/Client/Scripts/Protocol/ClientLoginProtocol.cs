@@ -6,6 +6,8 @@ using MProject.Utility;
 using MProject.Network;
 using MProject.Player;
 using MProject.Unit;
+using MProject.Manager;
+using MProject.World;
 
 namespace MProject.Protocol {
 
@@ -65,6 +67,12 @@ namespace MProject.Protocol {
         public NS2C_UserLoginProtocolHandler() : base(new NS2C_UserLoginProtocol()) { }
         public override void ReceivePacket(FPacket _packet) {
             var data = NS2C_JoinWorldProtocol.Deserialize(_packet);
+            var login_world = WorldManager.Instance.GetWorld<LoginWorld>();
+            if(null == login_world) {
+                Debug.LogError("LoginWorld is null");
+                return;
+            }
+            login_world.LocalGameMode.Login(data);
         }
     }
     #endregion

@@ -35,7 +35,7 @@ namespace MProject {
         }
 
         public FlatBuffers.Offset<Packet.Actor> ToFlatbuffer(FlatBuffers.FlatBufferBuilder _builder) {
-            return Packet.Actor.CreateActor(_builder, actor_key, player.user_key, UniversalToolkit.Transform2Flatbuffer(_builder, transform.position, transform.rotation, transform.localScale));
+            return Packet.Actor.CreateActor(_builder, actor_key, player.UserKey, UniversalToolkit.Transform2Flatbuffer(_builder, transform.position, transform.rotation, transform.localScale));
         }
 
         protected virtual void Awake() {

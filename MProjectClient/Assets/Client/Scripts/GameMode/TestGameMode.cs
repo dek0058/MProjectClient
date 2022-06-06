@@ -31,25 +31,12 @@ namespace MProject.GameMode {
             //NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.UserLogin, new UserLoginProtocolHandler());
             //NetworkManager.Instance.Handler_Manager.RegisterHandler((UInt32)Tag.IssueUserKey, new IssuseUserKeyProtocolHandler());
             
-            NetworkManager.Instance.Client.connect_completed += OnConnect;
-            NetworkManager.Instance.Client.connect_completed += OnDisconnect;
 
-            NetworkManager.Instance.initialize_completed += OnInitialize;
-            
-            NetworkManager.Instance.Connect();
-
-            
         }
 
 
         
         public void EndPlay() {
-            //NetworkManager.Instance.Handler_Manager.UnregisterHanlder();
-
-            NetworkManager.Instance.Client.connect_completed -= OnConnect;
-            NetworkManager.Instance.Client.connect_completed -= OnDisconnect;
-            
-            NetworkManager.Instance.initialize_completed -= OnInitialize;
 
         }
 
@@ -70,13 +57,13 @@ namespace MProject.GameMode {
 
 
         public void CreateActor() {
-            var actor_object = Instantiate(test_prefab, test_start_pos.position, Quaternion.identity);
-            var unit_actor = actor_object.GetComponent<UnitActor>();
-            character = unit_actor;
-            third_person_camera.character = actor_object.transform;
-
-            PC = PlayerManager.Instance.Local_Player as GenericPC;
-            PC.Character = character;
+            //var actor_object = Instantiate(test_prefab, test_start_pos.position, Quaternion.identity);
+            //var unit_actor = actor_object.GetComponent<UnitActor>();
+            //character = unit_actor;
+            //third_person_camera.character = actor_object.transform;
+            //
+            //PC = PlayerManager.Instance.Local_Player as GenericPC;
+            //PC.Character = character;
         }
 
     }

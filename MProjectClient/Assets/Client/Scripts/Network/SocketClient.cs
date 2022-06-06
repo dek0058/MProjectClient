@@ -16,6 +16,16 @@ namespace MProject.Network {
         public Action disconnect_completed;
 
         
+        private bool connected = false;
+
+
+        //! Getter
+
+        public bool IsConnected() {
+            return connected;
+        }
+
+        
         public SocketClient(IPAddress _ip_address, int _port, int _max_packet_size) {
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             ip_end_point = new IPEndPoint(_ip_address, _port);
@@ -26,17 +36,21 @@ namespace MProject.Network {
         }
 
         private void OnConnected(object _sender, SocketAsyncEventArgs _args) {
+            Debug.Log("Connect server");
             Completed -= OnConnected;
             sock = _args.ConnectSocket;
             UserToken = sock;
             SetBuffer(new byte[max_packet_size], 0, max_packet_size);
             Completed += OnReceive;
-            connect_completed.Invoke();
+            if(null != connect_completed) {
+                connect_completed.Invoke();
+            }
             sock.ReceiveAsync(this);
         }
 
         private void OnReceive(object _sender, SocketAsyncEventArgs _args) {
             if (false == sock.Connected) {
+                connected = false;
                 Debug.Log("Disconnect server");
                 return;
             }
@@ -57,13 +71,22 @@ namespace MProject.Network {
         }
 
         public void Accept() {
+            if(true == IsConnected()) {
+                return; // 연결 중이거나 연결되어 있으면 연결 요청을 하지 않는다.
+            }
+            connected = true;
             sock.ConnectAsync(this);
         }
 
         public void Disconnect() {
+            Debug.Log("Disconnect server");
+            connected = false;
             sock.Disconnect(false);
             sock.Close();
-            disconnect_completed.Invoke();
+            
+            if(null != disconnect_completed) {
+                disconnect_completed.Invoke();
+            }
         }
 
         public void SendPacket(FPacket _packet) {
@@ -79,7 +102,7 @@ namespace MProject.Network {
             sock.Send(buffer, SocketFlags.None);
         }
 
-
+        
         
 
     }

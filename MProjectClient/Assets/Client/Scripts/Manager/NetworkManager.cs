@@ -20,8 +20,6 @@ namespace MProject.Manager {
             get; private set;
         }
 
-        public Action initialize_completed;
-
         public Queue<Action> recv_callback = new Queue<Action>();
 
         [SerializeField]
@@ -29,29 +27,41 @@ namespace MProject.Manager {
         [SerializeField]
         private int port = 3333;
 
+
+        public bool IsConnect() {
+            return client.IsConnected(); // TODO &&
+        }
+
+
         protected override void Enable() {
 ;           client = new SocketClient(new IPAddress(address), port, GlobalDefine.PACKET_MAX_SIZE);
             Handler_Manager = new HandlerManager();
-            Handler_Manager.RegisterHandler((UInt32)Tag.Create, new ProtocolMessageHandler());
-        }
-        
-
-        public void Connect() {
-            client.Accept();
         }
 
-        public void SendPacket(FPacket _packet) {
-            Client.SendPacket(_packet);
+        protected override void Quit() {
+            client.Disconnect();
         }
 
 
         private void LateUpdate() {
-            
-            if(recv_callback.Count > 0) {
-                recv_callback.Dequeue()();
+
+            if (false == client.IsConnected()) {
+                client.Accept();
             }
 
+            //if(recv_callback.Count > 0) {
+            //    recv_callback.Dequeue()();
+            //}
+
         }
+
+        public void SendPacket(FPacket _packet) {
+            Debug.LogFormat("[Send Packet]{0}", (Packet.Tag)_packet.tag);
+            Client.SendPacket(_packet);
+        }
+
+
+        
 
     }
 }

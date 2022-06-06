@@ -66,6 +66,8 @@ namespace MProject.Protocol {
         public override void ReceivePacket(FPacket _packet) {
             var data = NS2C_JoinWorldProtocol.Deserialize(_packet);
             //data.WorldKey;
+            //
+
         }
     }
     #endregion
