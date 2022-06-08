@@ -93,8 +93,8 @@ namespace MProject.Network {
                 Debug.LogWarningFormat("[HandlerManager] Handler not registered [{0}]", (Packet.Tag)_packet.tag);
                 return;
             } else if ((Tag)_packet.tag == Tag.Create) {
-                handler_tag_map[_packet.tag].ReceivePacket(_packet);
                 Debug.LogFormat("[ReceivePacket]{0}", Tag.Create);
+                handler_tag_map[_packet.tag].ReceivePacket(_packet);
                 return;
             }
 
@@ -103,8 +103,8 @@ namespace MProject.Network {
                 Debug.LogWarningFormat("[HandlerManager] No handler for packet[{0}]", (Packet.Tag)_packet.tag);
                 return;
             }
-            handler_map[hash_key].ReceivePacket(_packet);
             Debug.LogFormat("[ReceivePacket]{0}", (Packet.Tag)handler_map[hash_key].GetPacketTag());
+            handler_map[hash_key].ReceivePacket(_packet);
         }
     }
 }

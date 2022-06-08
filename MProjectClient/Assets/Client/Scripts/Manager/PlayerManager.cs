@@ -47,7 +47,9 @@ namespace MProject.Manager {
                 return;
             }
             Debug.LogFormat("Join User[{0}]", _user_key);
-            players.Add(_user_key, player);
+            if(false == players.ContainsKey(_user_key)) {
+                players.Add(_user_key, player);
+            }
         }
         
         public void Left(UInt32 _user_key) {

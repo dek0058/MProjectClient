@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using MProject.Manager;
+using MProject.Utility;
 
 namespace MProject.Network {
 
@@ -59,6 +60,9 @@ namespace MProject.Network {
                 return;
             }
 
+            OnReceivePacket(_args.Buffer);
+
+            
             var buffer = new Span<byte>(_args.Buffer);
 
             UInt32 tag = BitConverter.ToUInt32(buffer.Slice(0, GlobalDefine.PACKET_TAG_SIZE));
@@ -69,6 +73,32 @@ namespace MProject.Network {
             NetworkManager.Instance.Handler_Manager.ReceivePacket(packet);
             sock.ReceiveAsync(this);
         }
+
+        private void OnReceivePacket(byte[] _buffer) {
+            if(_buffer.Length < GlobalDefine.PACKET_HEADER_SIZE) {
+                return;
+            }
+            var buffer = new Span<byte>(_buffer);
+            UInt32 tag = BitConverter.ToUInt32(buffer.Slice(0, GlobalDefine.PACKET_TAG_SIZE));
+            UInt32 size = BitConverter.ToUInt32(buffer.Slice(GlobalDefine.PACKET_TAG_SIZE, GlobalDefine.PACKET_LEGNTH_SIZE));
+            byte[] hash_code = buffer.Slice(8, GlobalDefine.PACKET_HASH_CODE_SIZE).ToArray();
+            byte[] data = buffer.Slice(GlobalDefine.PACKET_HEADER_SIZE, Convert.ToInt32(size)).ToArray();
+            FPacket packet = new FPacket(tag, size, hash_code, data);
+            NetworkManager.Instance.Handler_Manager.ReceivePacket(packet);
+
+            //byte[] next = buffer.Slice(GlobalDefine.PACKET_HEADER_SIZE + Convert.ToInt32(size)).ToArray();
+            //if (next.Length >= GlobalDefine.PACKET_HEADER_SIZE) {
+            //    var next_buffer = new Span<byte>(next);
+            //    UInt32 next_tag = BitConverter.ToUInt32(next_buffer.Slice(0, GlobalDefine.PACKET_TAG_SIZE));
+            //    UInt32 next_size = BitConverter.ToUInt32(next_buffer.Slice(GlobalDefine.PACKET_TAG_SIZE, GlobalDefine.PACKET_LEGNTH_SIZE));
+            //    byte[] next_hash_code = next_buffer.Slice(8, GlobalDefine.PACKET_HASH_CODE_SIZE).ToArray();
+            //    if (next_tag != 0 && next_size != 0 && UniversalToolkit.Digest2Hex(next_hash_code) != "00000000000000000000000000000000") {
+            //        OnReceivePacket(next);
+            //    }
+            //}
+        }
+        
+
 
         public void Accept() {
             if(true == IsConnected()) {
