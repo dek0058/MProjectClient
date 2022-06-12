@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MProject.Network {
     public class BaseProtocolHandler {
@@ -37,5 +38,13 @@ namespace MProject.Network {
         public byte[] data;
         public FPacket(UInt32 _tag, UInt32 _length, byte[] _hash_code, byte[] _data)
            => (tag, length, hash_code, data) = (_tag, _length, _hash_code, _data);
+        public byte[] ToBuffer() {
+            List<byte> data = new List<byte>();
+            data.AddRange(BitConverter.GetBytes(tag));
+            data.AddRange(BitConverter.GetBytes(length));
+            data.AddRange(hash_code);
+            data.AddRange(data);
+            return data.ToArray();
+        }
     }
 }

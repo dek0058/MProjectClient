@@ -10,11 +10,10 @@ using MProject.Protocol;
 namespace MProject.Manager {
     public class NetworkManager : USingleton<NetworkManager> {
 
-        private SocketClient client;
+        //private SocketClient client;
+        private AsyncClient client;
         
-        public SocketClient Client {
-            get => client;
-        }
+        
 
         public HandlerManager Handler_Manager {
             get; private set;
@@ -34,7 +33,8 @@ namespace MProject.Manager {
 
 
         protected override void Enable() {
-;           client = new SocketClient(new IPAddress(address), port, GlobalDefine.PACKET_MAX_SIZE);
+            client = new AsyncClient(address, port);
+;           //client = new SocketClient(new IPAddress(address), port, GlobalDefine.PACKET_MAX_SIZE);
             Handler_Manager = new HandlerManager();
         }
 
@@ -46,8 +46,16 @@ namespace MProject.Manager {
         private void LateUpdate() {
 
             if (false == client.IsConnected()) {
-                client.Accept();
+                client.Connect();
+                //client.Accept();
             }
+
+            
+            //if(true == client.IsConneteComplete()) {
+                
+            //    client.Sock.ReceiveAsync(client);4
+            //}
+
 
             //if(recv_callback.Count > 0) {
             //    recv_callback.Dequeue()();
@@ -57,7 +65,7 @@ namespace MProject.Manager {
 
         public void SendPacket(FPacket _packet) {
             Debug.LogFormat("[Send Packet]{0}", (Packet.Tag)_packet.tag);
-            Client.SendPacket(_packet);
+            client.Send(_packet);
         }
 
 

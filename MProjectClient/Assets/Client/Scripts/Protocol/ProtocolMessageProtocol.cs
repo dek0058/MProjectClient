@@ -47,6 +47,11 @@ namespace MProject.Protocol {
             foreach (var (tag, hash_code) in ProtocolMessageProtocol.Deserialize(_packet)) {
                 NetworkManager.Instance.Handler_Manager.RegisterHandler(tag, hash_code);
             }
+            if(null == WorldManager.Instance.CurrentWorld) {
+                Debug.LogError("WorldManager Current World is null!");
+                return;
+            }
+            WorldManager.Instance.CurrentWorld.Connect();
         }
     }
 }

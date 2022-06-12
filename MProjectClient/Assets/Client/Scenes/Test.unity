@@ -1237,6 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 1
+  conneceted: 0
   gamemode: {fileID: 1947677084}
 --- !u!4 &629629433
 Transform:
@@ -1337,6 +1338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 2
+  conneceted: 0
   gamemode: {fileID: 0}
 --- !u!1 &1017858942
 GameObject:

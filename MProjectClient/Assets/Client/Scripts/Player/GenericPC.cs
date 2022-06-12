@@ -44,12 +44,12 @@ namespace MProject.Player {
                 return;
             }
 
-            var test_game_mode = WorldManager.Instance.Game_Mode as TestGameMode;
-            if (null == test_game_mode) {
-                return;
-            }
-
-            unit_actor.SetDirection(_axis);
+            //var test_game_mode = WorldManager.Instance.Game_Mode as TestGameMode;
+            //if (null == test_game_mode) {
+            //    return;
+            //}
+            //
+            //unit_actor.SetDirection(_axis);
         }
 
         public void OnStop() {
@@ -65,14 +65,14 @@ namespace MProject.Player {
                 return;
             }
             
-            var test_game_mode = WorldManager.Instance.Game_Mode as TestGameMode;
-            if(null == test_game_mode) {
-                return;
-            }
-            
-            test_game_mode.third_person_camera.SetTarget(_axis);
-            var forward = test_game_mode.third_person_camera.target.forward;
-            unit_actor.SetRotation(new Vector2(forward.x, forward.z).normalized);
+            //var test_game_mode = WorldManager.Instance.Game_Mode as TestGameMode;
+            //if(null == test_game_mode) {
+            //    return;
+            //}
+            //
+            //test_game_mode.third_person_camera.SetTarget(_axis);
+            //var forward = test_game_mode.third_person_camera.target.forward;
+            //unit_actor.SetRotation(new Vector2(forward.x, forward.z).normalized);
         }
     }
 }

@@ -8,16 +8,23 @@ using MProject.World;
 namespace MProject.Manager {
     public class WorldManager : USingleton<WorldManager> {
 
-        public MWorld current_world = null;
+        [SerializeField]
+        private MWorld current_world = null;
         public SortedDictionary<UInt32/*World Key*/, MWorld> world_map = new SortedDictionary<uint, MWorld>();
 
-
-        public BaseGameMode Game_Mode {
-            get;
-            private set;
-        }
-        
         //! Getter
+        
+        public MWorld CurrentWorld {
+            get => current_world;
+            private set {
+                if(null != current_world) {
+                    current_world.Left();
+                }
+                current_world = value;
+                current_world.Join();
+            }
+        }
+
 
         public MWorld GetWorld(UInt32 _world_key) {
             return world_map.ContainsKey(_world_key) ? world_map[_world_key] : null;
@@ -43,7 +50,7 @@ namespace MProject.Manager {
                 world_map.Add(world.WorldKey, world);
             }
 
-            current_world.Load();
+            CurrentWorld.Load();
 
         }
 
@@ -53,7 +60,7 @@ namespace MProject.Manager {
                 Debug.LogErrorFormat("World not find.[{0}]", _world_key);
                 return;
             }
-            world.Join();
+            CurrentWorld = world;
         }
 
     }

@@ -31,6 +31,10 @@ namespace MProject.GameMode {
                 yield return new WaitForEndOfFrame();
             }
 
+            while (false == WorldManager.Instance.CurrentWorld.Connected) {
+                yield return new WaitForEndOfFrame();
+            }
+            
             NetworkManager.Instance.SendPacket(NC2S_UserLoginProtocol.CreatePacket());
         }
         
