@@ -17,14 +17,14 @@ namespace MProject.World {
         [SerializeField]
         protected BaseGameMode gamemode;
 
-        private Dictionary<UInt32/*Actor Key*/, Actor> actor_map = new Dictionary<uint, Actor>();
+        private Dictionary<UInt32/*Actor Key*/, Actor> actor_map = new Dictionary<uint, Actor> ( );
 
         //! Getter
-        
+
         public UInt32 WorldKey {
             get => key;
         }
-        
+
         public bool Connected {
             get => conneceted;
             protected set => conneceted = value;
@@ -35,28 +35,44 @@ namespace MProject.World {
             get {
                 return gamemode;
             }
-                
+
             protected set {
                 gamemode = value;
-                gamemode.Initialize();
+                gamemode.Initialize ( );
             }
         }
 
 
-        public virtual void Load() {
+        public virtual void Load ( ) {
             GameMode = gamemode;
         }
-        
-        public virtual void Connect() {
+
+        public virtual void Connect ( ) {
             Connected = true;
         }
 
-        public virtual void Join() {
+        public virtual void Join ( ) {
         }
 
-        public virtual void Left() {
+        public virtual void Left ( ) {
             Connected = false;
         }
-        
+
+        public void JoinActor ( Actor _actor ) {
+            if(actor_map.ContainsKey(_actor.actor_key)) {
+                actor_map.Add ( _actor.actor_key, _actor );
+            }
+        }
+
+        public void LeftActor ( Actor _actor ) {
+
+        }
+
+        public Actor GetActor ( UInt32 _actor_key ) {
+            if ( actor_map.ContainsKey ( _actor_key ) ) {
+                return actor_map[_actor_key];
+            }
+            return null;
+        }
     }
 }

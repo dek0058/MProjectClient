@@ -5,6 +5,7 @@ using UnityEngine;
 using MProject.Animation;
 using MProject.Player;
 using MProject.Utility;
+using MProject.Manager;
 
 namespace MProject {
     [RequireComponent(typeof(Rigidbody))]
@@ -37,6 +38,16 @@ namespace MProject {
         public FlatBuffers.Offset<Packet.Actor> ToFlatbuffer(FlatBuffers.FlatBufferBuilder _builder) {
             return Packet.Actor.CreateActor(_builder, actor_key, player.UserKey, UniversalToolkit.Transform2Flatbuffer(_builder, transform.position, transform.rotation, transform.localScale));
         }
+
+        //static Actor ToCast(Packet.Actor _actor) {
+        //    // Test Actor에다가 어떤 액터인지에 대한 키값도 필요할듯...
+        //    //Manager.WorldManager.Instance.test_prefab
+            
+        //    //var obj = GameObject.Instantiate ( Manager.WorldManager.Instance.test_prefab );
+            
+        //    return null;
+        //}
+            
 
         protected virtual void Awake() {
             ARigidbody = GetComponent<Rigidbody>();

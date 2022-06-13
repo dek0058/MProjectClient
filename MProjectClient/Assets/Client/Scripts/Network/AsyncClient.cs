@@ -20,6 +20,7 @@ namespace MProject.Network {
         public AsyncClient(byte[] _ip, int _port = 3333) {
             ip_end_point = new IPEndPoint(new IPAddress(_ip), _port);
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            sock.NoDelay = true;
         }
 
         public bool IsConnected() {
@@ -92,7 +93,7 @@ namespace MProject.Network {
             try {
                 int recv = sock.EndReceive(_result);
                 if(recv >= GlobalDefine.PACKET_HEADER_SIZE) {
-                    OnReceivePacket(_result.AsyncState as byte[]);
+                    OnReceivePacket ( new Span<byte> ( _result.AsyncState as byte[] ).Slice(0, recv).ToArray());
                 } else {
                     // TODO : 패킷이 덜 받음    
                 }
@@ -103,11 +104,14 @@ namespace MProject.Network {
             Receive();
         }
 
+       
+
         private void OnReceivePacket(byte[] _buffer) {
             if (_buffer.Length < GlobalDefine.PACKET_HEADER_SIZE) {
                 return;
             }
             var buffer = new Span<byte>(_buffer);
+            byte[] next_buffer = null;
             try {
                 UInt32 tag = BitConverter.ToUInt32(buffer.Slice(0, GlobalDefine.PACKET_TAG_SIZE));
                 UInt32 size = BitConverter.ToUInt32(buffer.Slice(GlobalDefine.PACKET_TAG_SIZE, GlobalDefine.PACKET_LEGNTH_SIZE));
@@ -123,8 +127,14 @@ namespace MProject.Network {
                 }
                 FPacket packet = new FPacket(tag, size, hash_code, data);
                 NetworkManager.Instance.Handler_Manager.ReceivePacket(packet);
+
+                next_buffer = buffer.Slice ( GlobalDefine.PACKET_HEADER_SIZE + Convert.ToInt32 ( size ) ).ToArray ( );
             } catch (Exception _e) {
                 Debug.LogErrorFormat("[Exception]{0}", _e.Message);
+            }
+
+            if(null != next_buffer) {
+                OnReceivePacket ( next_buffer );
             }
         }
 

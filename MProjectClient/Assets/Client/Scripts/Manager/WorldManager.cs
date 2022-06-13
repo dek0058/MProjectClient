@@ -12,6 +12,9 @@ namespace MProject.Manager {
         private MWorld current_world = null;
         public SortedDictionary<UInt32/*World Key*/, MWorld> world_map = new SortedDictionary<uint, MWorld>();
 
+        // Test용
+        public GameObject test_prefab;
+
         //! Getter
         
         public MWorld CurrentWorld {

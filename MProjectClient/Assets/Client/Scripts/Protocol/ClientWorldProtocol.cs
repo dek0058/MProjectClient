@@ -6,6 +6,7 @@ using MProject.Utility;
 using MProject.Network;
 using MProject.Player;
 using MProject.Unit;
+using MProject.Manager;
 
 namespace MProject.Protocol {
 
@@ -65,9 +66,7 @@ namespace MProject.Protocol {
         public NS2C_JoinWorldProtocolHandler() : base(new NS2C_JoinWorldProtocol()) {}
         public override void ReceivePacket(FPacket _packet) {
             var data = NS2C_JoinWorldProtocol.Deserialize(_packet);
-            //data.WorldKey;
-            //
-
+            WorldManager.Instance.JoinWorld ( data );
         }
     }
     #endregion
@@ -183,6 +182,21 @@ namespace MProject.Protocol {
         public NS2C_JoinUserInWorldProtocolHandler() : base(new NS2C_JoinUserInWorldProtocol()) { }
         public override void ReceivePacket(FPacket _packet) {
             var data = NS2C_JoinUserInWorldProtocol.Deserialize(_packet);
+
+            var world = WorldManager.Instance.GetWorld ( data.Item1 );
+            if(null == world ) {
+                Debug.LogFormat ( "World is null[{0}]", data.Item1 );
+                return;
+            }
+
+            foreach(var game_player in data.Item2) {
+                
+            }
+
+            foreach ( var actor in data.Item3 ) {
+                //world.JoinActor( actor );
+            }
+            //WorldManager.Instance.JoinUserInWorld ( data.Item1, data.Item2, data.Item3 );
 
         }
     }
