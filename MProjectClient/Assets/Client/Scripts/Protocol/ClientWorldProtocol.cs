@@ -189,15 +189,15 @@ namespace MProject.Protocol {
                 return;
             }
 
-            foreach(var game_player in data.Item2) {
-                
-            }
+            NetworkManager.Instance.PushQuery(() => {
+                foreach (var game_player in data.Item2) {
 
-            foreach ( var actor in data.Item3 ) {
-                //world.JoinActor( actor );
-            }
-            //WorldManager.Instance.JoinUserInWorld ( data.Item1, data.Item2, data.Item3 );
+                }
 
+                foreach (var actor in data.Item3) {
+                    world.JoinActor(Actor.Create(actor.ActorKey, actor.UserKey, 0, Vector3.zero));
+                }
+            });
         }
     }
 

@@ -39,15 +39,17 @@ namespace MProject {
             return Packet.Actor.CreateActor(_builder, actor_key, player.UserKey, UniversalToolkit.Transform2Flatbuffer(_builder, transform.position, transform.rotation, transform.localScale));
         }
 
-        //static Actor ToCast(Packet.Actor _actor) {
-        //    // Test Actor에다가 어떤 액터인지에 대한 키값도 필요할듯...
-        //    //Manager.WorldManager.Instance.test_prefab
-            
-        //    //var obj = GameObject.Instantiate ( Manager.WorldManager.Instance.test_prefab );
-            
-        //    return null;
-        //}
-            
+        public static Actor Create(UInt32 _actor_key, UInt32 _user_key, UInt32 _index, Vector3 _position) {
+            // TODO index로 어떤 프리펩 가져올지 가져옴
+            // Teste
+            var obj = GameObject.Instantiate(Manager.WorldManager.Instance.test_prefab);
+            var actor = obj.GetComponent<Actor>();
+            if(null == actor) {
+                return null;
+            }
+            actor.actor_key = _actor_key;
+            return actor;
+        }
 
         protected virtual void Awake() {
             ARigidbody = GetComponent<Rigidbody>();

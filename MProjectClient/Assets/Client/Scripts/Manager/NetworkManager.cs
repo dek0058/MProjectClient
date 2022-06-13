@@ -19,7 +19,7 @@ namespace MProject.Manager {
             get; private set;
         }
 
-        public Queue<Action> recv_callback = new Queue<Action>();
+        public Queue<Action> query_callback_queue = new Queue<Action>();
 
         [SerializeField]
         private byte[] address = new byte[4];
@@ -43,24 +43,16 @@ namespace MProject.Manager {
         }
 
 
-        private void LateUpdate() {
+        private void Update() {
 
             if (false == client.IsConnected()) {
                 client.Connect();
                 //client.Accept();
             }
 
-            
-            //if(true == client.IsConneteComplete()) {
-                
-            //    client.Sock.ReceiveAsync(client);4
-            //}
-
-
-            //if(recv_callback.Count > 0) {
-            //    recv_callback.Dequeue()();
-            //}
-
+            if(query_callback_queue.Count > 0) {
+                query_callback_queue.Dequeue()();
+            }
         }
 
         public void SendPacket(FPacket _packet) {
@@ -68,6 +60,9 @@ namespace MProject.Manager {
             client.Send(_packet);
         }
 
+        public void PushQuery(Action _callback) {
+            query_callback_queue.Enqueue(_callback);
+        }
 
         
 

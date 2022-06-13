@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,5 @@ namespace MProject.GameMode {
         
 
         public virtual void Initialize() {}
-
     }
 }
