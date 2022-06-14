@@ -50,11 +50,11 @@ namespace MProject.Manager {
                 //client.Accept();
             }
 
-            if(query_callback_queue.Count > 0) {
+            while(query_callback_queue.Count > 0) {
                 query_callback_queue.Dequeue()();
             }
         }
-
+        
         public void SendPacket(FPacket _packet) {
             Debug.LogFormat("[Send Packet]{0}", (Packet.Tag)_packet.tag);
             client.Send(_packet);

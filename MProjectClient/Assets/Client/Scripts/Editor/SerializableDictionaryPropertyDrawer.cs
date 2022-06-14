@@ -5,6 +5,8 @@ using UnityEditor;
 using System.Reflection;
 using System;
 
+#if UNITY_EDITOR
+
 public class SerializableDictionaryPropertyDrawer : PropertyDrawer
 {
 	const string KeysFieldName = "m_keys";
@@ -563,3 +565,4 @@ public class SerializableDictionaryStoragePropertyDrawer : PropertyDrawer
 		return EditorGUI.GetPropertyHeight(property);
 	}
 }
+#endif

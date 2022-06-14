@@ -11,6 +11,7 @@ using UnityEditor;
 
 namespace UnityChan
 {
+#if UNITY_EDITOR
 	public class CreateLocatorHere
 	{
 		// Add menu to the main menu
@@ -39,4 +40,5 @@ namespace UnityChan
 			go.transform.localPosition = Vector3.zero;
 		}
 	}
+#endif
 }
