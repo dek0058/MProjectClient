@@ -1,49 +1,32 @@
 trackSelection = true
+refreshSearchWindowsInPlayMode = false
 fetchPreview = true
-wantsMore = false
+defaultFlags = 0
 keepOpen = false
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.2EEDD5D8" = ""
-	"OpenInspectorPreview.2EEDD5D8" = "0"
-	"currentGroup.2EEDD5D8" = "all"
 }
 providers = {
-	adb = {
-		active = false
-		priority = 2500
-		defaultAction = null
-	}
-	asset = {
-		active = true
-		priority = 25
-		defaultAction = null
-	}
-	store = {
-		active = true
-		priority = 100
-		defaultAction = null
-	}
-	find = {
-		active = true
-		priority = 25
-		defaultAction = null
-	}
 	log = {
 		active = false
 		priority = 210
 		defaultAction = null
 	}
-	packages = {
-		active = true
-		priority = 90
+	adb = {
+		active = false
+		priority = 2500
 		defaultAction = null
 	}
 	performance = {
 		active = false
+		priority = 100
+		defaultAction = null
+	}
+	store = {
+		active = true
 		priority = 100
 		defaultAction = null
 	}
@@ -52,11 +35,28 @@ providers = {
 		priority = 50
 		defaultAction = null
 	}
-	query = {
+	find = {
 		active = true
-		priority = 100
+		priority = 25
 		defaultAction = null
 	}
+	packages = {
+		active = true
+		priority = 90
+		defaultAction = null
+	}
+	asset = {
+		active = true
+		priority = 25
+		defaultAction = null
+	}
+	presets_provider = {
+		active = false
+		priority = -10
+		defaultAction = null
+	}
+}
+objectSelectors = {
 }
 recentSearches = [
 ]
@@ -64,6 +64,7 @@ searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
+hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = false
