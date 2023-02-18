@@ -28,7 +28,7 @@ namespace mproject.network {
         [FieldOffset(4)]
         public GUID guid;
 
-        public uint Protocol_ID => ref ID;
+        public uint Protocol_ID => ID;
 
         public uint Protocol => protocol;
 
